@@ -1,0 +1,16 @@
+.buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.buttons button {
+  padding: 1rem 2rem;
+  max-width: 3rem;
+  max-height: 1rem;
+}
+
+.red {
+  background-color: red;
+  color: white;
+}
