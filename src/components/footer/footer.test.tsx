@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { Footer } from './footer';
 
-jest.mock('../menu/menu');
+// jest.mock('../menu/menu');
 
 describe('Given the componente Footer', () => {
   describe('When we render it', () => {

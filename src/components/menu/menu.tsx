@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { MenuOption } from '../../types/menu.options';
 import './menu.scss';
 
@@ -9,7 +10,7 @@ export function Menu({ menuOptions }: Props) {
       <ul>
         {menuOptions.map((item) => (
           <li key={item.label}>
-            <a href={item.path}>{item.label}</a>
+            <Link to={item.path}>{item.label}</Link>
           </li>
         ))}
       </ul>
