@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { Menu } from './menu';
-import { MenuOption } from '../../types/menu.options';
+import { MenuOption } from '../../../types/menu.options';
 import { MemoryRouter as Router } from 'react-router-dom';
 
 // jest.mock('../menu/menu');

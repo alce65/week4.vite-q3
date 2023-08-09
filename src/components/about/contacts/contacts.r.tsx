@@ -1,4 +1,4 @@
-import { SyntheticEvent } from 'react';
+import { SyntheticEvent, useState } from 'react';
 
 type Contact = {
   userName: string;
@@ -9,35 +9,39 @@ type Contact = {
   course: string;
 };
 
-export function Contacts() {
+export function ContactsR() {
+  const initialState: Contact = {
+    userName: '',
+    email: '',
+    passwd: '',
+    isOkConditions: false,
+    turn: '',
+    course: '',
+  };
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [userData, setUserData] = useState<Contact>(initialState);
+
   const handleSubmit = (ev: SyntheticEvent) => {
     ev.preventDefault();
-    const form = ev.target as HTMLFormElement;
-    const userData: Contact = {} as Contact;
-
-    userData.userName = (
-      form.elements.namedItem('userName') as HTMLInputElement
-    ).value;
-    userData.email = (
-      form.elements.namedItem('email') as HTMLInputElement
-    ).value;
-    userData.passwd = (
-      form.elements.namedItem('passwd') as HTMLInputElement
-    ).value;
-    userData.isOkConditions = (
-      form.elements.namedItem('isOkConditions') as HTMLInputElement
-    ).checked;
-    userData.turn = (form.elements.namedItem('turn') as HTMLInputElement).value;
-    userData.course = (
-      form.elements.namedItem('course') as HTMLInputElement
-    ).value;
-
     console.log('Enviando', userData);
+  };
+
+  const handleChange = (ev: SyntheticEvent) => {
+    const formControl = ev.target as HTMLFormElement;
+    console.dir(formControl);
+    setUserData({
+      ...userData,
+      [formControl.name]:
+        formControl.type === 'checkbox'
+          ? formControl.checked
+          : formControl.value,
+    });
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <legend>Contacta con nosotros</legend>
+      <p>Ejemplo de 'Controlled Form'</p>
 
       <div className="group-control">
         <input
@@ -45,11 +49,20 @@ export function Contacts() {
           name="userName"
           placeholder="Dime tu nombre"
           required
+          value={userData.userName}
+          onChange={handleChange}
         />
       </div>
 
       <div className="group-control">
-        <input type="email" name="email" placeholder="Dime tu email" required />
+        <input
+          type="email"
+          name="email"
+          placeholder="Dime tu email"
+          required
+          value={userData.email}
+          onChange={handleChange}
+        />
       </div>
 
       <div className="group-control">
@@ -58,15 +71,23 @@ export function Contacts() {
           name="passwd"
           placeholder="Dime tu password"
           required
+          value={userData.passwd}
+          onChange={handleChange}
         />
       </div>
 
       <div className="group-control">
-        <input type="checkbox" name="isOkConditions" id="is-ok" />
+        <input
+          type="checkbox"
+          name="isOkConditions"
+          id="is-ok"
+          checked={userData.isOkConditions}
+          onChange={handleChange}
+        />
         <label htmlFor="is-ok">Acepto las condiciones...</label>
       </div>
 
-      <fieldset>
+      <fieldset name="turn" onChange={handleChange}>
         <legend>Selecciona un turno</legend>
         <input type="radio" name="turn" id="turno-m" value="M" />
         <label htmlFor="turno-m">Mañana</label>
@@ -77,7 +98,12 @@ export function Contacts() {
       </fieldset>
 
       <label htmlFor="course">Elige un curso</label>
-      <select name="course" id="course">
+      <select
+        name="course"
+        id="course"
+        value={userData.course}
+        onChange={handleChange}
+      >
         <option value=""></option>
         <option value="A">Angular</option>
         <option value="R">React</option>

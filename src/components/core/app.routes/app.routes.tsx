@@ -1,10 +1,10 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
-import { MenuOption } from '../../types/menu.options';
+import { MenuOption } from '../../../types/menu.options';
 import { Suspense, lazy } from 'react';
 
-const HomePage = lazy(() => import('../../pages/home/home'));
-const TodoPage = lazy(() => import('../../pages/todo/todo'));
-const AboutPage = lazy(() => import('../../pages/about/about'));
+const HomePage = lazy(() => import('../../../pages/home/home'));
+const TodoPage = lazy(() => import('../../../pages/todo/todo'));
+const AboutPage = lazy(() => import('../../../pages/about/about'));
 
 type Props = {
   options: MenuOption[];

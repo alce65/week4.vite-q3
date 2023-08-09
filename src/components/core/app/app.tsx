@@ -3,7 +3,7 @@
  * Función con un nombre en PascalCase
  * devuelve un elemento tsx
  */
-import { MenuOption } from '../../types/menu.options';
+import { MenuOption } from '../../../types/menu.options';
 import { AppRoutes } from '../app.routes/app.routes';
 import { Footer } from '../footer/footer';
 import { Header } from '../header/header';

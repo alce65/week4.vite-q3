@@ -1,4 +1,4 @@
-import { Counter } from '../../components/counter/counter';
+import { Counter } from '../../components/home/counter/counter';
 
 function Home() {
   return (

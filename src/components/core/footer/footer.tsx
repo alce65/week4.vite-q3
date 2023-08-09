@@ -1,4 +1,4 @@
-import { MenuOption } from '../../types/menu.options';
+import { MenuOption } from '../../../types/menu.options';
 import { Menu } from '../menu/menu';
 
 type Props = {
