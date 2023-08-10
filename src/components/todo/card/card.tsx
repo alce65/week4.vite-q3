@@ -1,13 +1,15 @@
-/* eslint-disable no-unused-vars */
-
+import { useContext } from 'react';
 import { Task } from '../../../model/task';
+import { AppContext } from '../../../context/app.context';
 
 type Props = {
   task: Task;
-  erase: (task: Task) => void;
-  update: (task: Task) => void;
 };
-export function Card({ task, erase, update }: Props) {
+export function Card({ task }: Props) {
+  const {
+    tasksContext: { update, erase },
+  } = useContext(AppContext);
+
   const handleChange = () => {
     task.isCompleted = !task.isCompleted;
     update(task);

@@ -4,6 +4,7 @@ import '@testing-library/jest-dom';
 
 import { Add } from './add';
 import { TaskNoId } from '../../../model/task';
+import { AppContext, AppContextStructure } from '../../../context/app.context';
 
 describe('Given the component Add', () => {
   describe('When we render it', () => {
@@ -14,8 +15,16 @@ describe('Given the component Add', () => {
       isCompleted: false,
     };
 
+    const mockContextValue: AppContextStructure = {
+      tasksContext: { add: addTaskMock },
+    } as unknown as AppContextStructure;
+
     beforeEach(() => {
-      render(<Add addTask={addTaskMock}></Add>);
+      render(
+        <AppContext.Provider value={mockContextValue}>
+          <Add></Add>
+        </AppContext.Provider>
+      );
     });
 
     test('The component should be in the document', async () => {

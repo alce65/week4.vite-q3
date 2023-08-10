@@ -13,6 +13,7 @@ export function App() {
   const menuOptions: MenuOption[] = [
     { path: '/home', label: 'Inicio' },
     { path: '/todo', label: 'ToDo' },
+    { path: '/got', label: 'GoT' },
     { path: '/about', label: 'Acerca de' },
   ];
 

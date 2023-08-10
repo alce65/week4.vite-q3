@@ -1,12 +1,12 @@
-/* eslint-disable no-unused-vars */
-import { SyntheticEvent } from 'react';
+import { SyntheticEvent, useContext } from 'react';
 import { TaskNoId } from '../../../model/task';
+import { AppContext } from '../../../context/app.context';
 
-type Props = {
-  addTask: (task: TaskNoId) => void;
-};
+export function Add() {
+  const {
+    tasksContext: { add },
+  } = useContext(AppContext);
 
-export function Add({ addTask }: Props) {
   const handleSubmit = (ev: SyntheticEvent) => {
     ev.preventDefault();
     const form = ev.target as HTMLFormElement;
@@ -18,7 +18,7 @@ export function Add({ addTask }: Props) {
     };
 
     console.log(newTask);
-    addTask(newTask);
+    add(newTask);
   };
 
   return (
