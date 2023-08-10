@@ -4,6 +4,7 @@ import { Suspense, lazy } from 'react';
 
 const HomePage = lazy(() => import('../../../pages/home/home'));
 const TodoPage = lazy(() => import('../../../pages/todo/todo'));
+const GotPage = lazy(() => import('../../../pages/got/got'));
 const AboutPage = lazy(() => import('../../../pages/about/about'));
 
 type Props = {
@@ -17,7 +18,8 @@ export function AppRoutes({ options }: Props) {
         <Route path="/" element={<HomePage></HomePage>}></Route>
         <Route path={paths[0]} element={<HomePage></HomePage>}></Route>
         <Route path={paths[1]} element={<TodoPage></TodoPage>}></Route>
-        <Route path={paths[2]} element={<AboutPage></AboutPage>}></Route>
+        <Route path={paths[2]} element={<GotPage></GotPage>}></Route>
+        <Route path={paths[3]} element={<AboutPage></AboutPage>}></Route>
         <Route path="*" element={<Navigate to={'/'}></Navigate>}></Route>
       </Routes>
     </Suspense>
