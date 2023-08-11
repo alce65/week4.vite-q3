@@ -14,6 +14,7 @@ export function App() {
     { path: '/home', label: 'Inicio' },
     { path: '/todo', label: 'ToDo' },
     { path: '/got', label: 'GoT' },
+    { path: '/notes', label: 'Notas' },
     { path: '/about', label: 'Acerca de' },
   ];
 
