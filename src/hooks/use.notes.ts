@@ -1,12 +1,17 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useReducer, useState } from 'react';
 import { Note, NoteNoId } from '../model/note';
 import { ApiNotesRepository } from '../services/api.notes.repository';
+import { notesReducer } from '../reducers/notes.reducer';
+import * as ac from '../reducers/notes.action.creators';
 
 const urlBase = 'http://localhost:3000/notes';
 
 export function useNotes() {
   const repo = useMemo(() => new ApiNotesRepository(urlBase), []);
-  const [notes, setNotes] = useState<Note[]>([]);
+
+  // const [notes, setNotes] = useState<Note[]>([]);
+
+  const [notes, dispatch] = useReducer(notesReducer, []);
   const [loadState, setLoadState] = useState('Loading');
 
   // Ejecuta el callback
@@ -15,7 +20,8 @@ export function useNotes() {
   const loadNotes = useCallback(async () => {
     try {
       const notes = await repo.getAll();
-      setNotes(notes);
+      // setNotes(notes);
+      dispatch(ac.loadNotesActionCreator(notes));
       setLoadState('Loaded');
       console.log('Load notes');
     } catch (error) {
@@ -28,7 +34,8 @@ export function useNotes() {
       // 1 - Asíncrono : repo
       const fullNote = await repo.create(note);
       // 2 - Síncrono: State
-      setNotes([...notes, fullNote]);
+      // setNotes([...notes, fullNote]);
+      dispatch(ac.createNoteActionCreator(fullNote));
     } catch (error) {
       console.error((error as Error).message);
     }
@@ -39,10 +46,12 @@ export function useNotes() {
       // 1 - Asíncrono : repo
       const updatedNote = await repo.update(note.id, note);
       // 2 - Síncrono: State
-      const newNotes = notes.map((item) =>
-        item.id !== note.id ? item : updatedNote
-      );
-      setNotes(newNotes);
+
+      // const newNotes = notes.map((item) =>
+      //   item.id !== note.id ? item : updatedNote
+      // );
+      // setNotes(newNotes);
+      dispatch(ac.updateNoteActionCreator(updatedNote));
     } catch (error) {
       console.error((error as Error).message);
     }
@@ -51,7 +60,8 @@ export function useNotes() {
   const erase = async (note: Note) => {
     try {
       await repo.delete(note.id);
-      setNotes(notes.filter((item) => item.id !== note.id));
+      // setNotes(notes.filter((item) => item.id !== note.id));
+      dispatch(ac.deleteNoteActionCreator(note.id));
     } catch (error) {
       console.error((error as Error).message);
     }
