@@ -15,22 +15,20 @@ export function notesReducer(
 ): NotesState {
   switch (action.type) {
     case actionTypeNames.load:
-      return action.payload as Note[];
+      return action.payload;
 
     case actionTypeNames.create:
-      return [...state, action.payload as Note];
+      return [...state, action.payload];
 
     case actionTypeNames.update:
       return state.map((item) =>
-        item.id !== (action.payload as Note).id
-          ? item
-          : (action.payload as Note)
+        item.id !== action.payload.id ? item : action.payload
       );
 
     case actionTypeNames.delete:
-      return state.filter((item) => item.id !== (action.payload as number));
+      return state.filter((item) => item.id !== action.payload);
 
     default:
-      return { ...state };
+      return [...state];
   }
 }

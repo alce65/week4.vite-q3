@@ -5,12 +5,29 @@
 import { Note } from '../model/note';
 import { actionTypeNames } from './notes.action.names';
 
-type Keys = keyof typeof actionTypeNames;
+// Sin narrowing
+// type Keys = keyof typeof actionTypeNames;
+// export type NoteAction = {
+//   type: (typeof actionTypeNames)[Keys];
+//   payload: Note[] | Note | number;
+// };
 
-export type NoteAction = {
-  type: (typeof actionTypeNames)[Keys];
-  payload: Note[] | Note | number;
+export type NoteActionAll = {
+  type: 'notes@load';
+  payload: Note[];
 };
+
+export type NoteActionOne = {
+  type: 'notes@create' | 'notes@update';
+  payload: Note;
+};
+
+export type NoteActionId = {
+  type: 'notes@delete';
+  payload: number;
+};
+
+export type NoteAction = NoteActionAll | NoteActionOne | NoteActionId;
 
 // CRUD
 

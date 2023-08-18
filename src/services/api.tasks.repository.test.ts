@@ -14,5 +14,14 @@ describe('Given ApiTasksRepository class ', () => {
       expect(global.fetch).toHaveBeenCalled();
       // expect(result).toBe('Test');
     });
+
+    test('The method getAll should be used with an error', () => {
+      global.fetch = jest.fn().mockResolvedValueOnce({
+        ok: false,
+        json: jest.fn().mockResolvedValue('Test'),
+      });
+
+      expect(repo.getAll()).rejects.toThrow();
+    });
   });
 });

@@ -8,9 +8,6 @@ import { ApiTasksRepository } from '../services/api.tasks.repository';
 describe('Given custom hook useTasks', () => {
   const mockTask: Task = {} as Task;
 
-  ApiTasksRepository.prototype.getAll = jest
-    .fn()
-    .mockResolvedValue([{ id: 1 }]);
   function TestComponent() {
     const { tasks, loadState, loadTasks, add, update, erase } = useTasks();
     return (
@@ -35,6 +32,9 @@ describe('Given custom hook useTasks', () => {
   }
   describe('When the component run the hook', () => {
     beforeEach(() => {
+      ApiTasksRepository.prototype.getAll = jest
+        .fn()
+        .mockResolvedValue([{ id: 101 }]);
       render(<TestComponent></TestComponent>);
     });
 
@@ -48,6 +48,21 @@ describe('Given custom hook useTasks', () => {
       await userEvent.click(buttons[0]);
       const loadElement = await screen.findByText('LoadState: Loaded');
       expect(loadElement).toBeInTheDocument();
+      const tasksElement = await screen.findByText(/101/);
+      expect(tasksElement).toBeInTheDocument();
+    });
+  });
+
+  describe('When the component run the hook with errors', () => {
+    beforeEach(() => {
+      ApiTasksRepository.prototype.getAll = jest
+        .fn()
+        .mockRejectedValueOnce(new Error('Get All Error'));
+      render(<TestComponent></TestComponent>);
+    });
+    test('If we click button 1 error should send to console', async () => {
+      const buttons = screen.getAllByRole('button');
+      await userEvent.click(buttons[0]);
     });
   });
 });

@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
 import { MenuOption } from '../../../types/menu.options';
-import './menu.scss';
+import { menu } from './menu.module.scss';
 
 type Props = { menuOptions: MenuOption[] };
 
 export function Menu({ menuOptions }: Props) {
   return (
-    <nav>
+    <nav className={menu}>
       <ul>
         {menuOptions.map((item) => (
           <li key={item.label}>
